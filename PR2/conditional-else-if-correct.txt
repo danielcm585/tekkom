@@ -1,0 +1,18 @@
+{
+    var x : integer;
+    get x
+    if x > 265 then
+        x := 265
+    else
+        if x > 26 then
+            x := 26
+        else
+            if x > 2 then
+                x := 2
+            else
+                x := 0
+            end if
+        end if
+    end if
+    put x
+}

@@ -1,0 +1,9 @@
+{
+    var x : integer;
+    get x
+    if x > 265 then
+        x := 265
+    end if
+    end if
+    put x
+}

@@ -1,15 +1,19 @@
-{ var a : integer
+{ 
+  var a : integer
   var b : integer
   var c : boolean;
 
   get a
   b := 0
+
   if a > b then
      c := true
   else 
      c := false
   end if
-  { var a : integer;
+
+  {
+    var a : integer;
     a := 5
     if c then
        repeat

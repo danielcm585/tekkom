@@ -1,0 +1,18 @@
+{
+    var x : integer
+    var i : integer;
+    x := 0
+    i := 1
+    repeat
+        if i <= 2 then
+            if i = 2 then
+                x := x + 100
+            else 
+                x := x + i
+            end if
+        else
+            x := x + 1
+        end if 
+        i := i + 1
+    until i > 3
+}
