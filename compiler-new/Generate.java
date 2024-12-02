@@ -692,13 +692,65 @@ class Generate
                 cell = cell + 29;
                 break;
 
+            case 42:
+                HMachine.memory[cell] = HMachine.RETURN;
+                cell = cell + 1;
+                break;
+
+            case 43:
+                HMachine.memory[cell] = HMachine.FLIP;
+                HMachine.memory[cell+1] = HMachine.STORE;
+                HMachine.memory[cell+2] = HMachine.RETURN;
+                cell = cell + 3;
+                break;
+
+            case 44:
+                // Assume that the procedure's entry point is known
+                int procAddress = Context.symbolHash.find(Context.currentStr).getEntryPoint();
+                HMachine.memory[cell] = HMachine.CALL;
+                HMachine.memory[cell+1] = procAddress;
+                cell = cell + 2;
+                break;            
+            
+            case 45:
+                HMachine.memory[cell] = HMachine.PUSHMT;
+                cell = cell + 1;
+                break;
+
+            case 46:
+                HMachine.memory[cell] = HMachine.PUSHMT;
+                cell = cell + 1;
+                break;            
+            
+            case 47:
+                // Assume that the function's entry point is known
+                int funcAddress = Context.symbolHash.find(Context.currentStr).getEntryPoint();
+                HMachine.memory[cell] = HMachine.CALL;
+                HMachine.memory[cell+1] = funcAddress;
+                HMachine.memory[cell+2] = HMachine.LOAD;
+                cell = cell + 3;
+                break;            
+
+            case 48:
+                // Assuming arguments are already evaluated and on the stack
+                // Here, we need to adjust the stack or manage activation records
+                // This is highly dependent on the calling convention
+                // For simplicity, we assume arguments are pushed in order
+            
+                // No code is generated here unless specific actions are required
+                // You may need to adjust this based on your compiler's design
+                break;            
+
             // R49 : construct instructions similar to R31
             //       for non-function identifier
             case 49:
                 kode = Context.symbolHash.find(Context.currentStr).getIdKind();
 
-                if (kode == Bucket.FUNCTION)
-                    System.out.println("Unable to perform function implemetation.");
+                if (kode == Bucket.FUNCTION) {
+                    // R46: Construct instructions to form a block mark for function call
+                    HMachine.memory[cell] = HMachine.PUSHMT;
+                    cell = cell + 1;
+                }
                 else
                     obtainAddress();
 
@@ -709,8 +761,14 @@ class Generate
             case 50:
                 kode = Context.symbolHash.find(Context.currentStr).getIdKind();
 
-                if (kode == Bucket.FUNCTION)
-                    System.out.println("Unable to perform function implemetation.");
+                if (kode == Bucket.FUNCTION) {
+                    // R47: Construct instructions to call a function
+                    int funcAddr = Context.symbolHash.find(Context.currentStr).getEntryPoint();
+                    HMachine.memory[cell] = HMachine.CALL;
+                    HMachine.memory[cell+1] = funcAddr;
+                    HMachine.memory[cell+2] = HMachine.LOAD;
+                    cell = cell + 3;
+                }
                 else
                 {
                    HMachine.memory[cell] = HMachine.LOAD;

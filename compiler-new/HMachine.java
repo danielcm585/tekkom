@@ -40,13 +40,15 @@ class HMachine
                             PRINTC =19,
                             READI =20,
                             PRINTI =21,
-                            HALT =22;
+                            HALT =22,
+                            CALL = 23,
+                            RETURN = 24;
 
     public static final String[] operation = 
        { "NAME", "LOAD", "STORE", "PUSH", "PUSHMT", "SETD",
          "POP", "DUP", "BR", "BF", "ADD", "SUB", "MUL",
          "DIVI", "EQ", "LT", "ORI", "FLIP", "READC", "PRINTC",
-         "READI", "PRINTI", "HALT" };
+         "READI", "PRINTI", "HALT", "CALL", "RETURN" };
 
     // Method to determine the index of a certain operation
     public static int toOpNumber(String op)
@@ -61,4 +63,30 @@ class HMachine
 
         return -1;
     }
+
+    public void run() {
+        while (pc < memory.length) {
+            int opcode = memory[pc];
+            switch (opcode) {
+                // ... existing opcodes ...
+                case CALL:
+                    int addr = memory[++pc];
+                    // Save current pc and activation record
+                    // Adjust stack and display as needed
+                    pc = addr;
+                    break;
+                case RETURN:
+                    // Restore saved pc and activation record
+                    // Adjust stack and display as needed
+                    // pc = return address
+                    break;
+                // ... rest of the opcodes ...
+                default:
+                    System.err.println("Unknown opcode: " + opcode);
+                    System.exit(1);
+            }
+            pc++;
+        }
+    }
+
 }

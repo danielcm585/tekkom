@@ -13,6 +13,7 @@ class Bucket
         this.idKind = UNDEFINED;
         this.nextBucket = null;
         this.parameterCount = 0;
+        this.entryPoint = 0;
     }
 
     public void setIdName(String idName)
@@ -143,6 +144,16 @@ class Bucket
         this.parameterCount = count;
     }
 
+    public int getEntryPoint() 
+    {
+        return entryPoint;
+    }
+
+    public void setEntryPoint(int entryPoint) 
+    {
+        this.entryPoint = entryPoint;
+    }
+
     public static final int INTEGER = 0;
     public static final int BOOLEAN = 1;
     public static final int UNDEFINED = -1;
@@ -159,4 +170,5 @@ class Bucket
     private int idKind;
     private Bucket nextBucket;
     private int parameterCount;
+    private int entryPoint;
 }
