@@ -1,0 +1,13 @@
+{
+    var a: integer
+    proc b
+    {
+        var a: integer;
+        put 1
+    }
+    var c: integer;
+    put 2
+    a := 1000
+    c := a
+    b
+}
