@@ -202,8 +202,13 @@ class Context
                 symbolHash.find(currentStr).setLLON(lexicalLevel, orderNumber);
                 orderNumber++;
                 break;
+            case 23:
+                break;
             case 24:
                 symbolHash.find(currentStr).setIdKind(Bucket.PROCEDURE);
+                break;
+            case 26:
+                symbolHash.find(currentStr).setIdKind(Bucket.FUNCTION);
                 break;
             case 28:
                 Bucket procCheck = symbolHash.find(currentStr);
@@ -229,6 +234,41 @@ class Context
                     System.out.println("Semantic Error: Procedure or function '" + currentStr + "' not found in symbol table at line " + currentLine);
                     errorCount++;
                 }
+                break;
+            case 33:
+                Bucket funcCheck = symbolHash.find(currentStr);
+                if (funcCheck != null) {
+                    if (funcCheck.getIdKind() != Bucket.FUNCTION) {
+                        System.out.println("Semantic Error: '" + currentStr + "' is not a function at line " + currentLine);
+                        errorCount++;
+                    }
+                } else {
+                    System.out.println("Semantic Error: Function '" + currentStr + "' not found in symbol table at line " + currentLine);
+                    errorCount++;
+                }
+                break;
+            case 36:
+                temp = ((Integer)typeStack.pop()).intValue();
+                if (temp != ((Integer)typeStack.peek()).intValue())
+                {
+                    System.out.println("Unmatched type at line " + currentLine + ": " + currentStr);
+                    errorCount++;
+                }
+                typeStack.push(new Integer(temp));
+                break;
+            case 37:
+                Bucket termCheck = symbolHash.find(currentStr);
+                if (termCheck != null) {
+                    if (termCheck.getIdKind() != Bucket.FUNCTION && termCheck.getIdKind() != Bucket.SCALAR) {
+                        System.out.println("Semantic Error: '" + currentStr + "' is not a function or a scalar at line " + currentLine);
+                        errorCount++;
+                    }
+                } else {
+                    System.out.println("Semantic Error: Term '" + currentStr + "' not found in symbol table at line " + currentLine);
+                    errorCount++;
+                }
+                break;
+            case 40:
                 break;
         }
     }

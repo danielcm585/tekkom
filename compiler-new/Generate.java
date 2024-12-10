@@ -695,7 +695,15 @@ class Generate
                 break;
 
             case 42:
-                HMachine.memory[cell] = HMachine.POP;
+                HMachine.memory[cell] = HMachine.PUSH;
+                HMachine.memory[cell+1] = 1;
+                HMachine.memory[cell+2] = HMachine.POP;
+                HMachine.memory[cell+3] = HMachine.BR;
+                cell = cell + 4;
+                break;
+
+            case 43:
+                HMachine.memory[cell] = HMachine.FLIP;
                 HMachine.memory[cell+1] = HMachine.BR;
                 cell = cell + 2;
                 break;
@@ -711,23 +719,17 @@ class Generate
                 break;            
             
             case 45:
-                HMachine.memory[cell] = HMachine.PUSHMT;
-                cell = cell + 1;
                 break;
 
             case 46:
-                HMachine.memory[cell] = HMachine.PUSHMT;
-                cell = cell + 1;
-                break;      
+                break;
 
             // R49 : construct instructions similar to R31
             //       for non-function identifier
             case 49:
                 kode = Context.symbolHash.find(Context.currentStr).getIdKind();
 
-                if (kode == Bucket.FUNCTION)
-                    System.out.println("Unable to perform function implemetation.");
-                else
+                if (kode != Bucket.FUNCTION)
                     obtainAddress();
 
                 break;
@@ -737,10 +739,15 @@ class Generate
             case 50:
                 kode = Context.symbolHash.find(Context.currentStr).getIdKind();
 
-                if (kode == Bucket.FUNCTION)
-                    System.out.println("Unable to perform function implemetation.");
-                else
-                {
+                if (kode == Bucket.FUNCTION) {
+                    obtainAddress();
+                    HMachine.memory[cell] = HMachine.LOAD;
+                    HMachine.memory[cell+1] = HMachine.PUSH;
+                    HMachine.memory[cell+2] = cell + 5;
+                    HMachine.memory[cell+3] = HMachine.FLIP;
+                    HMachine.memory[cell+4] = HMachine.BR;
+                    cell = cell + 5;
+                } else {
                    HMachine.memory[cell] = HMachine.LOAD;
                    cell = cell + 1;
                 }

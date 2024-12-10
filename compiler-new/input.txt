@@ -1,13 +1,12 @@
 {
-    var a: integer
-    proc b
-    {
-        var a: integer;
-        put 1
-    }
-    var c: integer;
-    put 2
-    a := 1000
-    c := a
-    b
+    var b: integer
+    integer func a = 1234
+    proc c {;
+        put 7777
+    };
+    b := 5000
+    c
+    put b
+    b := a
+    put b
 }

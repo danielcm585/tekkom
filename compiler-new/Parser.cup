@@ -201,7 +201,7 @@ moreDeclarations   ::=
                    |   declaration moreDeclarations ;
  
 declaration        ::= VAR _current IDENT C3 C4 optArrayBound AS type C5 C11 C7
-                   |   type C40 FUNC _current IDENT C3 C26 R7 C22 C23 C5 C0 R2 funcBody
+                   |   type C40 FUNC _current IDENT C3 C26 C22 C23 C5 R54 R7 R55 C0 R2 funcBody
                    |   PROC _current IDENT C3 C24 C22 R54 R7 R55 C0 R1 procBody;
 
 funcBody           ::= EQ expression C36 C11 C11 C2 R6 R43 R9 C7

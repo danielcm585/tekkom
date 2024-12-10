@@ -159,5 +159,4 @@ class Bucket
     private int idKind;
     private Bucket nextBucket;
     private int parameterCount;
-    private int entryPoint;
 }
